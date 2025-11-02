@@ -1,0 +1,20 @@
+# dataset path
+path: /root/autodl-tmp/images
+train: ./train
+val: ./val
+test: ./test
+
+# number of classes
+nc: 9
+
+# class names
+names: 
+  0 : Dry-Cargo-Ship
+  1 : Engineering-Ship
+  2 : Fishing-Ship
+  3 : Motorboat
+  4 : Tugboat
+  5 : Passenger-Ship
+  6 : Warship
+  7 : Liquid-Cargo-Ship
+  8 : other-ship
