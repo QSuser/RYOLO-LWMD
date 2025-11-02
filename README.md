@@ -1,5 +1,7 @@
 Implementation of the paper " RYOLO-LWMD-Lite: a Lightweight Rotating Ship Target Detection Model for Optical Remote Sensing Images".
 
+
+Download address for the dataset used: https://ieee-dataport.org/documents/ashipclass9
 # Create Environment
 
 ```
