@@ -56,7 +56,6 @@ if __name__ == "__main__":
     coco_gt = COCO("GT/ship9_test_coco.json")     
     coco_dt = coco_gt.loadRes("predictions_new.json") 
 
-    # 构造 RotatedCOCOeval，设置 iouType="bbox" 进行边界框评估
     coco_eval = RotatedCOCOeval(coco_gt, coco_dt, iouType="bbox")
     coco_eval.evaluate()
     coco_eval.accumulate()

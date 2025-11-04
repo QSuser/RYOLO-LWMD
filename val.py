@@ -9,7 +9,7 @@ if __name__ == '__main__':
               imgsz=640,
               batch=32,
               # rect=False,
-              # save_json=True, # if you need to cal coco metrice
+              save_json=True, # if you need to cal coco metrice
               project='runs/test',
               name='demo222',
               )

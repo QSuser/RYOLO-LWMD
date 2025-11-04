@@ -23,7 +23,7 @@ def finetune(param_dict, prune_model_path):
 if __name__ == '__main__':
     param_dict = {
         # origin
-        'model': 'to/your/path/xxx.pt',
+        'model': 'to/your/path/xxx_v2.pt',
         'data':'to/your/dataset/data.yaml',
         'imgsz': 640,
         'epochs': 350,

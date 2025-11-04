@@ -409,7 +409,7 @@ class DiverseBranchBlockNOAct(nn.Module):
             torch.nn.init.constant_(self.dbb_origin.bn.weight, 1.0)
 
     @property
-    def weight(self):  ##含有@property
+    def weight(self):  
         if hasattr(self, 'dbb_reparam'):
             # return self.nonlinear(self.dbb_reparam(inputs))
             return self.dbb_reparam.weight

@@ -346,9 +346,9 @@ class OBBCompressor(BaseTrainer):
       
     def remove_all_hooks(self, model):
         """
-        移除模型中所有层的 forward hooks, forward pre-hooks 和 backward hooks
+        remove forward hooks, forward pre-hooks and backward hooks
         """
-        for module in model.modules():  # 遍历模型的所有子模块
+        for module in model.modules():  
             if hasattr(module, "_forward_hooks"):
                 module._forward_hooks.clear()
             if hasattr(module, "_forward_pre_hooks"):
