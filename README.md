@@ -32,7 +32,7 @@ mim install mmengine
 mim install "mmcv>=2.0.0"
 
 // for compress model
-pip install torch-pruning==1.5.1 tensorboard
+pip install torch-pruning==1.5.1 tensorboard dill
 
 // for rotated coco evaluation
 python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
