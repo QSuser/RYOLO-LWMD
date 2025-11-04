@@ -1,7 +1,7 @@
 Implementation of the paper " RYOLO-LWMD-Lite: a Lightweight Rotating Ship Target Detection Model for Optical Remote Sensing Images".
 
-
 Download address for the dataset used: https://ieee-dataport.org/documents/ashipclass9
+
 # Create Environment
 
 ```
@@ -16,6 +16,7 @@ source venv/bin/activate  # Linux/Mac
 ```
 
 # Install Dependencies
+
 ```
 // CUDA 10.2
 conda install pytorch==1.11.0 torchvision==0.12.0 torchaudio==0.11.0 cudatoolkit=10.2 -c pytorch
@@ -30,25 +31,29 @@ pip install -U openmim
 mim install mmengine
 mim install "mmcv>=2.0.0"
 
+// for compress model
+pip install torch-pruning==1.5.1 tensorboard
+
 // for rotated coco evaluation
 python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
 ```
 
 # train
+
 ```
 python train.py
 ```
 
-
 # compress
+
 ```
+python transform_weight.py //get model that can be pruned
 python compress.py
 ```
 
 # val
+
 ```
+python val.py // get prediction.json
 python val_for_obb_coco.py
 ```
-
-
-

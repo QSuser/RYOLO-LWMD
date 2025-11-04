@@ -48,6 +48,7 @@ __all__ = [
     "SCDown",
     "C2f_CloAtt",
     "Fusion",
+    "Bottleneck_CloAtt"
 ]
 
 

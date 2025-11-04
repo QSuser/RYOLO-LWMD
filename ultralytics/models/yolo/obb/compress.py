@@ -34,19 +34,12 @@ from ultralytics.utils.checks import check_imgsz, print_args, check_amp
 from ultralytics.utils.autobatch import check_train_batch_size
 from ultralytics.utils.torch_utils import ModelEMA, EarlyStopping, one_cycle, init_seeds, select_device
 from torch.utils.tensorboard import SummaryWriter
-# from ultralytics.nn.extra_modules.kernel_warehouse import get_temperature
 
-from ultralytics.nn.modules import OBB, RepConv
-from ultralytics.nn.modules.block import PSABlock
-from ultralytics.nn.extra_modules.MyPruner import DiverseBranchBlockPruner, LayerNormPruner, RepConvPruner, DyHeadBlockPruner, RepConvNPruner
-from timm.models.layers import SqueezeExcite
+from ultralytics.nn.modules.block import *
+from ultralytics.nn.extra_modules.prune_module import *
+from ultralytics.nn.modules.head import OBB_TADDH
 
-# 没有购买yolov8项目需要注释以下
-from ultralytics.nn.extra_modules import Detect_Efficient, Detect_DyHead_Prune
-from ultralytics.nn.extra_modules.block import Faster_Block, Fusion, IFM, InjectionMultiSum_Auto_pool, TopBasicLayer, SimFusion_3in, SimFusion_4in, AdvPoolFusion, PyramidPoolAgg, RepVGGBlock, RepConvN
-from ultralytics.nn.extra_modules.rep_block import DiverseBranchBlock
-from ultralytics.nn.extra_modules.dyhead_prune import DyHeadBlock_Prune
-from ultralytics.nn.backbone.convnextv2 import LayerNorm
+
 
 class HiddenPrints:
     def __enter__(self):
@@ -114,34 +107,16 @@ def get_pruner(opt, model, example_inputs):
     
     # ignore output layers
     # for yolov8.yaml
-    # for k, m in model.named_modules():
-    #     if isinstance(m, OBB):
-    #         ignored_layers.append(m.cv2[0][2])
-    #         ignored_layers.append(m.cv2[1][2])
-    #         ignored_layers.append(m.cv2[2][2])
-    #         ignored_layers.append(m.cv3[0][2])
-    #         ignored_layers.append(m.cv3[1][2])
-    #         ignored_layers.append(m.cv3[2][2])
-    #         ignored_layers.append(m.cv4[0][2])
-    #         ignored_layers.append(m.cv4[1][2])
-    #         ignored_layers.append(m.cv4[2][2])
-    #         ignored_layers.append(m.dfl)
-    
-    # for yolo11.yaml
     for k, m in model.named_modules():
-        if isinstance(m, OBB):
-            ignored_layers.append(m.cv2[0][2])
-            ignored_layers.append(m.cv2[1][2])
-            ignored_layers.append(m.cv2[2][2])
-            ignored_layers.append(m.cv3[0][2])
-            ignored_layers.append(m.cv3[1][2])
-            ignored_layers.append(m.cv3[2][2])
-            ignored_layers.append(m.cv4[0][2])
-            ignored_layers.append(m.cv4[1][2])
-            ignored_layers.append(m.cv4[2][2])
-            ignored_layers.append(m.dfl)
-        if isinstance(m, PSABlock):
-            ignored_layers.append(m.attn)
+        if isinstance(m, OBB_TADDH):
+             ignored_layers.append(m)
+        if isinstance(m, Fusion):
+             ignored_layers.append(m.fusion_weight)
+        if isinstance(m, C2f_CloAtt_v2):
+            ignored_layers.append(m)
+
+    
+
     
     print(ignored_layers)
     # Here we fix iterative_steps=200 to prune the model progressively with small steps 
